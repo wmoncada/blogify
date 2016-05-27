@@ -172,4 +172,28 @@ class Comments
     {
         return $this->status;
     }
+
+    /**
+     * Set post
+     *
+     * @param \AppBundle\Entity\Posts $post
+     *
+     * @return Comments
+     */
+    public function setPost(\AppBundle\Entity\Posts $post = null)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return \AppBundle\Entity\Posts
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
 }
