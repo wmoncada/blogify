@@ -2,7 +2,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Users 
 {
 	/**
-	 * @ORM\Column(type="string", length=100)
+	 * @ORM\Column(type="string", length=50)
 	 * @ORM\Id
 	 */
 	private $username;
@@ -30,6 +30,16 @@ class Users
 	 * @ORM\Column(type="text")
 	 */
 	private $profile;
+	// One user can write many posts 
+	/**
+	 * @ORM\OneToMany(targetEntity="Posts", mappedBy="user")
+	 */
+	private $posts;
+
+	public function __construct()
+	{
+		$this->posts = new ArrayCollection();
+	}
 
     /**
      * Set username
@@ -149,5 +159,39 @@ class Users
     public function getProfile()
     {
         return $this->profile;
+    }
+
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Posts $post
+     *
+     * @return Users
+     */
+    public function addPost(\AppBundle\Entity\Posts $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Posts $post
+     */
+    public function removePost(\AppBundle\Entity\Posts $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

@@ -2,7 +2,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="posts")
@@ -32,7 +32,23 @@ class Posts
 	 */
 	private $tags;
 
+    // One post can have Many Comments
+    /**
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="post")
+     */
+    private $comments;
 
+    // A post can be write only by one user
+    /**
+     * @ORM\ManyToOne(targetEntity="Users", inversedBy="posts")
+     * @ORM\JoinColumn(name="username", referencedColumnName="username")
+     */ 
+    private $user;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -138,5 +154,63 @@ class Posts
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\Users $user
+     *
+     * @return Posts
+     */
+    public function setUser(\AppBundle\Entity\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\Users
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comments $comment
+     *
+     * @return Posts
+     */
+    public function addComment(\AppBundle\Entity\Comments $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comments $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comments $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

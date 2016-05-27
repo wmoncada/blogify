@@ -35,6 +35,13 @@ class Comments
 	 * @ORM\Column(type="integer")
 	 */
 	private $status;
+    //Many Comments can be related to One Post
+    /**
+     * @ORM\ManyToOne(targetEntity="Posts", inversedBy="comments")
+     * @ORM\JoinColumn(name="post",referencedColumnName="id") 
+     */ 
+    private $post;
+
 
     /**
      * Get id

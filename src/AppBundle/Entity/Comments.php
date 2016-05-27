@@ -35,6 +35,13 @@ class Comments
 	 * @ORM\Column(type="integer")
 	 */
 	private $status;
+    //Many Comments can be related to One Post
+    /**
+     * @ORM\ManyToOne(targetEntity="Posts", inversedBy="comments")
+     * @ORM\JoinColumn(name="post",referencedColumnName="id") 
+     */ 
+    private $post;
+
 
     /**
      * Get id
@@ -164,5 +171,29 @@ class Comments
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set post
+     *
+     * @param \AppBundle\Entity\Posts $post
+     *
+     * @return Comments
+     */
+    public function setPost(\AppBundle\Entity\Posts $post = null)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return \AppBundle\Entity\Posts
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }
