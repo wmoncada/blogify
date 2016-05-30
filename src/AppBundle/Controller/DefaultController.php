@@ -18,4 +18,14 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
         ]);
     }
+
+    /**
+     * Prueba de la plantilla
+     * 
+     * @Route("/prueba")
+     */
+    public function pruebaAction(Request $request) 
+    {
+        return $this->render('prueba/test.html.twig');
+    }
 }
