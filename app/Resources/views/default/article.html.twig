@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article class="row card-panel hoverable">
+        <div class="col s12">
+            <div class="titulo">
+                <h2>{{ post.title }}</h2>
+                <h5>Por {{ post.user.username }}</h5>
+            </div>
+            <div class="abstract">{{ post.content }}</div>
+            <div class="divider"></div>
+            <div>
+                {% set tags = post.tags|split(',') %}
+                {% for tag in tags %}
+                    <a  href="#" class="btn waves-effect">
+                        <i class="material-icons left">label</i>
+                        {{ tag }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+{% endblock %}
+
+

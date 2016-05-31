@@ -5,7 +5,17 @@
     <article class="row card-panel hoverable">
         <div class="col s12">
             <div class="titulo">
-                <h2>{{ post.title }}</h2>
+                <h2><a href="{{ 
+                                path(
+                                    'show_articulo', 
+                                    {
+                                        'id': post.id, 
+                                        'slug': post.title|replace({
+                                                                ' ': '-'
+                                                            })
+                                    }
+                                ) 
+                            }}">{{ post.title }}</a></h2>
                 <h5>Por {{ post.user.username }}</h5>
             </div>
 
