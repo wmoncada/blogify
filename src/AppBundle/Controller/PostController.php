@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Post\CreatePost;
 
 class PostController extends Controller
 {
@@ -12,6 +13,6 @@ class PostController extends Controller
 	 */
 	 public function createAction()
 	 {
-
+	 	 $form = $this->createForm(CreatePost::class);
 	 } 
 }
